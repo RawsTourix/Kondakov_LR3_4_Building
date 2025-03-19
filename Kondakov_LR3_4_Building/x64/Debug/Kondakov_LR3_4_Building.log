@@ -1,5 +1,2 @@
 ﻿  kondakov_lr3_4_building.cpp
-C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_building.cpp(47,93): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
-  kondakov_lr3_4_main.cpp
-  Создание кода...
   Kondakov_LR3_4_Building.vcxproj -> C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\x64\Debug\Kondakov_LR3_4_Building.exe

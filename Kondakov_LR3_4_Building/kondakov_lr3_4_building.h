@@ -33,6 +33,7 @@ public:
 	Building(string&& name,
 		int height,
 		int square,
+		int volume,
 		vector<int>&& reconstruction_dates);
 
 	// Деструктор

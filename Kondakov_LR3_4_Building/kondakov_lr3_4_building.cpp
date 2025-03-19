@@ -3,14 +3,14 @@
 // Конструкторы
 // С параметрами
 Building::Building(const string& name,
-	int height,
-	int square,
-	const vector<int>& reconstruction_dates)
-	: name(name),
-	height(height),
-	square(square),
-	volume(height* square),
-	reconstruction_dates(reconstruction_dates) {
+				   int height,
+				   int square,
+	               const vector<int>& reconstruction_dates)
+	           : name(name),
+	             height(height),
+	             square(square),
+	             volume(height* square),
+	             reconstruction_dates(reconstruction_dates) {
 }
 
 // Преобразования
@@ -20,14 +20,15 @@ Building::Building(const string& name)
 
 // Перемещения
 Building::Building(string&& name,
-	int height,
-	int square,
-	vector<int>&& reconstruction_dates)
-	: name(move(name)),
-	height(height),
-	square(square),
-	volume(volume),
-	reconstruction_dates(move(reconstruction_dates)) {
+	               int height,
+	               int square,
+				   int volume,
+	               vector<int>&& reconstruction_dates)
+	           : name(move(name)),
+	             height(height),
+	             square(square),
+	             volume(volume),
+	             reconstruction_dates(move(reconstruction_dates)) {
 }
 
 // Сеттеры
@@ -44,7 +45,9 @@ inline vector<int> Building::get_reconstruction_dates() const { return this->rec
 
 // Получение средней даты реконструкции
 inline int Building::get_average_reconstruction_date() const {
-	return accumulate(this->reconstruction_dates.begin(), this->reconstruction_dates.end(), 0) / this->reconstruction_dates.size();
+	return this->reconstruction_dates.empty() ? 0 :
+		static_cast<int>(accumulate(this->reconstruction_dates.begin(), this->reconstruction_dates.end(), 0)) /
+		static_cast<int>(this->reconstruction_dates.size());
 }
 
 // Переопределение операторов
@@ -72,16 +75,16 @@ bool operator<=(const Building& a, const Building& b) {
 // Объекта с числом
 bool operator==(const Building& a, int year) { return a.get_average_reconstruction_date() == year; }
 bool operator!=(const Building& a, int year) { return a.get_average_reconstruction_date() != year; }
-bool operator>(const Building& a, int year) { return a.get_average_reconstruction_date() < year; }
-bool operator<(const Building& a, int year) { return a.get_average_reconstruction_date() > year; }
+bool operator>(const Building& a, int year)  { return a.get_average_reconstruction_date() < year; }
+bool operator<(const Building& a, int year)  { return a.get_average_reconstruction_date() > year; }
 bool operator<=(const Building& a, int year) { return a.get_average_reconstruction_date() <= year; }
 bool operator>=(const Building& a, int year) { return a.get_average_reconstruction_date() >= year; }
 
 // Числа с объектом
 bool operator==(int year, const Building& b) { return year == b.get_average_reconstruction_date(); }
 bool operator!=(int year, const Building& b) { return year != b.get_average_reconstruction_date(); }
-bool operator<(int year, const Building& b) { return year < b.get_average_reconstruction_date(); }
-bool operator>(int year, const Building& b) { return year > b.get_average_reconstruction_date(); }
+bool operator<(int year, const Building& b)  { return year < b.get_average_reconstruction_date(); }
+bool operator>(int year, const Building& b)  { return year > b.get_average_reconstruction_date(); }
 bool operator<=(int year, const Building& b) { return year <= b.get_average_reconstruction_date(); }
 bool operator>=(int year, const Building& b) { return year >= b.get_average_reconstruction_date(); }
 
@@ -95,7 +98,7 @@ Building Building::operator++(int) {
 }
 
 // Декремент
-Building& Building::operator--() { this->height = max(0, this->height);  return *this; }
+Building& Building::operator--() { this->height = (this->height > 0) ? this->height - 1 : 0;  return *this; }
 Building Building::operator--(int) {
 	Building copy{ *this };
 	--(*this);
