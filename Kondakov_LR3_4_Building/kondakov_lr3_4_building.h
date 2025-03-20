@@ -48,11 +48,19 @@ public:
 	// Геттеры
 	inline string get_name() const;
 	inline int get_height() const;
+	inline string get_height_as_str() const;
 	inline int get_square() const;
+	inline string get_square_as_str() const;
+	inline int get_volume() const;
+	inline string get_volume_as_str() const;
 	inline vector<int> get_reconstruction_dates() const;
+	inline string get_reconstruction_dates_as_str(const string& separator) const;
 
 	// Получение средней даты реконструкции
 	inline int get_average_reconstruction_date() const;
+
+	// Обновление объёма здания (при изменении высоты или площади)
+	inline void update_volume();
 
 	// Переопределение операторов
 	// Сравнение по средней дате реконструкции
@@ -80,6 +88,9 @@ public:
 	friend bool operator>=(int year, const Building& b);
 	friend bool operator<=(int year, const Building& b);
 
+	// Для преобразования информации о здании в строку
+	explicit operator string() const;
+
 	// Инкремент
 	Building& operator++();
 	Building operator++(int);
@@ -93,10 +104,6 @@ public:
 
 	// Присваивание со сложением
 	Building& operator+=(const Building& b);
-
-
-	// Метод вычисления объёма
-	inline int calculate_volume() { this->volume = this->height * this->square; return this->volume; }
 };
 
 #endif //!KONDAKOV_LR3_4_BUILDING_H

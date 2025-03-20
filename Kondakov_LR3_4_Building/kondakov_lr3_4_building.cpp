@@ -32,22 +32,47 @@ Building::Building(string&& name,
 }
 
 // Сеттеры
-inline void Building::set_name(const string& name) { this->name = name; }
-inline void Building::set_height(int height) { this->height = height; }
-inline void Building::set_square(int square) { this->square = square; }
-inline void Building::set_reconstruction_dates(const vector<int>& reconstruction_dates) { this->reconstruction_dates = reconstruction_dates; }
+inline void Building::set_name(const string& name) { this->name = name; }						// название здания
+inline void Building::set_height(int height) { this->height = height; this->update_volume(); }	// высота здания
+inline void Building::set_square(int square) { this->square = square; this->update_volume(); }	// площадь здания
+inline void Building::set_reconstruction_dates(const vector<int>& reconstruction_dates) {		// список дат реконструкции
+	this->reconstruction_dates = reconstruction_dates;
+}
 
 // Геттеры
-inline string Building::get_name() const { return this->name; }
-inline int Building::get_height() const { return this->height; }
-inline int Building::get_square() const { return this->square; }
-inline vector<int> Building::get_reconstruction_dates() const { return this->reconstruction_dates; }
+inline string Building::get_name() const { return this->name; }											// название здания
+inline int Building::get_height() const { return this->height; }										// высота здания
+inline string Building::get_height_as_str() const { return to_string(this->height); }					// высота здания в строковом формате
+inline int Building::get_square() const { return this->square; }										// площадь здания
+inline string Building::get_square_as_str() const { return to_string(this->square); }					// площадь здания в строковом формате
+inline int Building::get_volume() const { return this->volume; }										// объём здания
+inline string Building::get_volume_as_str() const { return to_string(this->volume); }					// объём здания в строковом формате
+inline vector<int> Building::get_reconstruction_dates() const { return this->reconstruction_dates; }	// список дат реконструкции
+inline string Building::get_reconstruction_dates_as_str(const string& separator = ", ") const {			// список дат реконструкции как строка
+	if (reconstruction_dates.empty()) return "";
+	
+	auto it = this->reconstruction_dates.begin();
+	string result = to_string(*it);
+	++it;
+
+	while (it != this->reconstruction_dates.end()) {
+		result += separator + to_string(*it);
+		++it;
+	}
+
+	return result;
+}
 
 // Получение средней даты реконструкции
 inline int Building::get_average_reconstruction_date() const {
 	return this->reconstruction_dates.empty() ? 0 :
 		static_cast<int>(accumulate(this->reconstruction_dates.begin(), this->reconstruction_dates.end(), 0)) /
 		static_cast<int>(this->reconstruction_dates.size());
+}
+
+// Обновление объёма здания (при изменении высоты или площади)
+inline void Building::update_volume() {
+	this->volume = this->height * this->square;
 }
 
 // Переопределение операторов
@@ -88,8 +113,18 @@ bool operator>(int year, const Building& b)  { return year > b.get_average_recon
 bool operator<=(int year, const Building& b) { return year <= b.get_average_reconstruction_date(); }
 bool operator>=(int year, const Building& b) { return year >= b.get_average_reconstruction_date(); }
 
+// Преобразование информации о здании в строку
+Building::operator string() const {
+	return
+		"Название:\t\t" + this->get_name() + "\n" +
+		"Высота:\t\t\t" + this->get_height_as_str() + "\n" +
+		"Площадь:\t\t" + this->get_square_as_str() + "\n" +
+		"Объём:\t\t\t" + this->get_volume_as_str() + "\n" +
+		"Список дат\n\
+         реконструкции:\t" + this->get_reconstruction_dates_as_str() + "\n";
+}
 
-// Инкремент
+// Инкремент, увеличение высоты
 Building& Building::operator++() { this->height++;  return *this; }
 Building Building::operator++(int) {
 	Building copy{ *this };
@@ -97,7 +132,7 @@ Building Building::operator++(int) {
 	return copy;
 }
 
-// Декремент
+// Декремент, уменьшение высоты
 Building& Building::operator--() { this->height = (this->height > 0) ? this->height - 1 : 0;  return *this; }
 Building Building::operator--(int) {
 	Building copy{ *this };
