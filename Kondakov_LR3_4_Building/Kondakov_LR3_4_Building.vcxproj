@@ -141,7 +141,7 @@
     <ClInclude Include="kondakov_lr3_4_def.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="buildings.txt" />
+    <None Include="buildings.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

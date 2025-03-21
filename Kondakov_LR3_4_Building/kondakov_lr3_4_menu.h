@@ -6,6 +6,7 @@
 
 class Menu {
 private:
+    /* TODO: Структура меню */
 
 public:
     // Вывод информации о зданиях

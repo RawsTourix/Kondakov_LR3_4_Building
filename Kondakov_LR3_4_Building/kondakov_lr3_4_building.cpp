@@ -13,6 +13,19 @@ Building::Building(const string& name,
 	             reconstruction_dates(reconstruction_dates) {
 }
 
+// С параметрами для загрузки из бинарного файла
+Building::Building(string name,
+				   int height,
+				   int square,
+				   int volume,
+				   vector<int> reconstruction_dates)
+			   : name(name),
+				 height(height),
+				 square(square),
+				 volume(volume),
+				 reconstruction_dates(reconstruction_dates) {
+}
+
 // Преобразования
 Building::Building(const string& name)
 	: Building(name, this->height, this->square, this->reconstruction_dates) {

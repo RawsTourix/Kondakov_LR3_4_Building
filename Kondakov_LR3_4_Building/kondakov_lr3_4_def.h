@@ -7,6 +7,8 @@
 #include <string>
 #include <numeric>
 #include <functional>
+#include <sstream>
+#include <fstream>
 
 using namespace std;
 

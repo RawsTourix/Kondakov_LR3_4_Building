@@ -9,10 +9,14 @@ private:
 	string name = "Building";				// название здания
 	int height = 0;							// высота здания
 	int square = 0;							// площадь здания
-	int volume = 0;
+	int volume = 0;							// объём здания
 	vector<int> reconstruction_dates = {};  // список дат реконструкции
 
 public:
+	// Количество полей класса 
+	// Текущие поля: название, высота, площадь, объём, список дат реконструкции
+	static const int SIZE = 5;
+
 	// Конструкоры
 	// По умолчанию
 	Building() = default;
@@ -22,6 +26,13 @@ public:
 		int height,
 		int square,
 		const vector<int>& reconstruction_dates);
+
+	// С параметрами для загрузки из бинарного файла
+	Building(string name,
+		int height,
+		int square,
+		int volume,
+		vector<int> reconstruction_dates);
 
 	// Преобразования
 	Building(const string& name);

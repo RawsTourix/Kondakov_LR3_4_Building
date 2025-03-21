@@ -49,6 +49,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="buildings.txt" />
+    <None Include="buildings.bin">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
   </ItemGroup>
 </Project>

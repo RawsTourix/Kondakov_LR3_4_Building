@@ -2,19 +2,15 @@
 
 // Преобразовать список зданий в строку удобную для сохранения в файл
 template <typename Iterator>
-string SaveModule::parse_buildings_to_save(Iterator begin, Iterator end, const string& separator) {
+string SaveModule::parse_buildings_to_save(Iterator begin, Iterator end) {
     if (begin == end) return "";
 
-    string result = begin->get_name() + separator +
-        begin->get_height_as_str() + separator +
-        begin->get_square_as_str() + separator +
-        begin->get_volume_as_str() + separator +
-        begin->get_reconstruction_dates_as_str() + separator;
+    const string separator = "\n";
 
-    ++begin;
+    string result;
 
     while (begin != end) {
-        result += "\n" + begin->get_name() + separator +
+        result += begin->get_name() + separator +
             begin->get_height_as_str() + separator +
             begin->get_square_as_str() + separator +
             begin->get_volume_as_str() + separator +

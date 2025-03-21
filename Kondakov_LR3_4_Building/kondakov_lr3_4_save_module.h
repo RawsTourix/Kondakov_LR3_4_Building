@@ -7,7 +7,7 @@ class SaveModule {
 public:
     // Преобразовать список зданий в строку удобную для сохранения в файл
     template <typename Iterator>
-    static string parse_buildings_to_save(Iterator begin, Iterator end, const string& separator = "\n");
+    static string parse_buildings_to_save(Iterator begin, Iterator end);
 
     // Загрузка данных о зданиях в бинарный файл
     template <typename Iterator>
