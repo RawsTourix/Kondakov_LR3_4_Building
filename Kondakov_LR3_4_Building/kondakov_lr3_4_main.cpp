@@ -1,4 +1,4 @@
-﻿#include "kondakov_lr3_4_building.h"
+﻿#include "kondakov_lr3_4_menu.h"
 
 int main()
 {

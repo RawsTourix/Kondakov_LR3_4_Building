@@ -127,10 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="kondakov_lr3_4_load_module.cpp" />
+    <ClCompile Include="kondakov_lr3_4_load_module.h" />
+    <ClCompile Include="kondakov_lr3_4_menu.cpp" />
+    <ClCompile Include="kondakov_lr3_4_save_module.cpp" />
     <ClCompile Include="kondakov_lr3_4_building.cpp" />
     <ClCompile Include="kondakov_lr3_4_main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="kondakov_lr3_4_menu.h" />
+    <ClInclude Include="kondakov_lr3_4_save_module.h" />
     <ClInclude Include="kondakov_lr3_4_building.h" />
     <ClInclude Include="kondakov_lr3_4_def.h" />
   </ItemGroup>

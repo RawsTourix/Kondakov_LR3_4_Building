@@ -104,6 +104,10 @@ public:
 
 	// Присваивание со сложением
 	Building& operator+=(const Building& b);
+
+	// Преобразование контейнеров, хранящих экземпляры класса Здание, в строку
+	template <typename Iterator>
+	static string buildings_to_string(Iterator begin, Iterator end, const string& separator = "\n");
 };
 
 #endif //!KONDAKOV_LR3_4_BUILDING_H

@@ -155,3 +155,19 @@ Building& Building::operator+=(const Building& b) {
 	this->reconstruction_dates.insert(reconstruction_dates.end(), b.reconstruction_dates.begin(), b.reconstruction_dates.end());
 	return *this;
 }
+
+// Преобразование контейнеров, хранящих экземпляры класса Здание, в строку
+template <typename Iterator>
+string Building::buildings_to_string(Iterator begin, Iterator end, const string& separator) {
+	if (begin == end) return "";
+
+	string result = *begin;
+	++begin;
+
+	while (begin != end) {
+		result += separator + *begin;
+		++begin;
+	}
+
+	return result;
+}

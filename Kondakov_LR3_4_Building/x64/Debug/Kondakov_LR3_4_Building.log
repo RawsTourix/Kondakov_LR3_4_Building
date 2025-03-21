@@ -1,2 +1,5 @@
-﻿  kondakov_lr3_4_building.cpp
+﻿  kondakov_lr3_4_menu.cpp
+  kondakov_lr3_4_main.cpp
+  Создание кода...
+x64\Debug\kondakov_lr3_4_load_module.obj : warning LNK4042: объект указан более одного раза; лишние не учитываются
   Kondakov_LR3_4_Building.vcxproj -> C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\x64\Debug\Kondakov_LR3_4_Building.exe
