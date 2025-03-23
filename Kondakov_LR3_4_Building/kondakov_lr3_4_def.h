@@ -9,10 +9,14 @@
 #include <functional>
 #include <sstream>
 #include <fstream>
+#include <type_traits>
+#include <iterator>
 
 using namespace std;
 
 // Переопределение операторов + и += для последовательных контейнеров
+
+// Объединяет 2 контейнера в 1
 template <template <typename...> class Container, typename T>
 Container<T> operator+(const Container<T>& a, const Container<T>& b) {
     Container<T> result(a);
@@ -20,6 +24,7 @@ Container<T> operator+(const Container<T>& a, const Container<T>& b) {
     return result;
 }
 
+// Добавляет один контейнер в конец другого
 template <template <typename...> class Container, typename T>
 Container<T>& operator+=(Container<T>& a, const Container<T>& b) {
     a.insert(a.end(), b.begin(), b.end());

@@ -22,7 +22,7 @@ vector<string> LoadModule::get_decoded_buildings_params(ifstream& file) {
 // Преобразование строки с параметрами здания в vector зданий
 vector<Building> LoadModule::get_buildings_from_binary_file(const string& filename) {
     vector<Building> buildings {};
-    ifstream file(filename, ios::binary);
+    ifstream file(filename, ios::binary | ios::in);
 
     if (file.is_open()) {
         // Получение строки с параметрами зданий
@@ -60,10 +60,11 @@ vector<Building> LoadModule::get_buildings_from_binary_file(const string& filena
                     return buildings;
                 }
                 param_id++;
-                if (param_id > Building::SIZE) {
-                    param_id = 1;
-                    buildings.emplace_back(Building(name, height, square, volume, reconstruction_dates));
-                }
+
+                if (param_id > Building::SIZE) {  // при заполнении всех существующих параметров
+                    param_id = 1;                 // присваиваем номеру параметров исходное значение
+                    buildings.emplace_back(Building(name, height, square, volume, reconstruction_dates));  // и создаём здание с этими
+                }                                                                                          // параметрами в конце vector
             }
         }
         else

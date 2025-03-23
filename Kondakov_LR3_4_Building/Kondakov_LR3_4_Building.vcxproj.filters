@@ -24,13 +24,19 @@
     <ClCompile Include="kondakov_lr3_4_load_module.h">
       <Filter>Файлы заголовков</Filter>
     </ClCompile>
+    <ClCompile Include="kondakov_lr3_4_menu_object.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="kondakov_lr3_4_input_control.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClCompile>
+    <ClCompile Include="kondakov_lr3_4_input_control.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="kondakov_lr3_4_save_module.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClCompile>
     <ClCompile Include="kondakov_lr3_4_load_module.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="kondakov_lr3_4_save_module.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="kondakov_lr3_4_menu.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,7 +50,13 @@
     <ClInclude Include="kondakov_lr3_4_save_module.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="kondakov_lr3_4_menu.h">
+    <ClInclude Include="kondakov_lr3_4_menu_object.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="kondakov_lr3_4_menu_object.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="kondakov_lr3_4_building.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

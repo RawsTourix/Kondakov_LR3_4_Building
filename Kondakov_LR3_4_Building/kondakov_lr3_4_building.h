@@ -1,21 +1,36 @@
 #ifndef KONDAKOV_LR3_4_BUILDING_H
 #define KONDAKOV_LR3_4_BUILDING_H
 
-#include "kondakov_lr3_4_def.h"
+#include "kondakov_lr3_4_input_control.h"
 
 // Здание
 class Building {
 private:
-	string name = "Building";				// название здания
-	int height = 0;							// высота здания
-	int square = 0;							// площадь здания
-	int volume = 0;							// объём здания
+	string name = DEFAULT_NAME;				// название здания
+	int height = DEFAULT_HEIGHT;			// высота здания
+	int square = DEFAULT_SQUARE;			// площадь здания
+	int volume = DEFAULT_VOLUME;			// объём здания
 	vector<int> reconstruction_dates = {};  // список дат реконструкции
 
 public:
 	// Количество полей класса 
-	// Текущие поля: название, высота, площадь, объём, список дат реконструкции
+	// Текущие поля: 
+	// 1. название
+	// 2. высота
+	// 3. площадь
+	// 4. объём
+	// 5. список дат реконструкции
 	static const int SIZE = 5;
+
+	// Значения по умолчанию
+	static const string DEFAULT_NAME;	  // название здания по умолчанию
+										  // (инициализация вне класса, т.к. string — это нетривиальный тип данных и не может быть
+										  // инициализирован внутри класса, будучи константным, т.к. его значение будет неизвестно
+										  // на этапе компиляции)
+
+	static const int DEFAULT_HEIGHT = 0;  // высота здания по умолчанию
+	static const int DEFAULT_SQUARE = 0;  // площадь здания по умолчанию
+	static const int DEFAULT_VOLUME = 0;  // объём здания по умолчанию
 
 	// Конструкоры
 	// По умолчанию
@@ -23,16 +38,16 @@ public:
 
 	// С параметрами
 	Building(const string& name,
-		int height,
-		int square,
-		const vector<int>& reconstruction_dates);
+			 int height,
+			 int square,
+			 const vector<int>& reconstruction_dates);
 
 	// С параметрами для загрузки из бинарного файла
 	Building(string name,
-		int height,
-		int square,
-		int volume,
-		vector<int> reconstruction_dates);
+			 int height,
+			 int square,
+			 int volume,
+			 vector<int> reconstruction_dates);
 
 	// Преобразования
 	Building(const string& name);
@@ -42,10 +57,10 @@ public:
 
 	// Перемещения
 	Building(string&& name,
-		int height,
-		int square,
-		int volume,
-		vector<int>&& reconstruction_dates);
+			 int height,
+			 int square,
+			 int volume,
+			 vector<int>&& reconstruction_dates);
 
 	// Деструктор
 	~Building() = default;
@@ -102,6 +117,9 @@ public:
 	// Для преобразования информации о здании в строку
 	explicit operator string() const;
 
+	// Для проверки на параметры по умолчанию
+	explicit operator bool() const;
+
 	// Инкремент
 	Building& operator++();
 	Building operator++(int);
@@ -116,9 +134,27 @@ public:
 	// Присваивание со сложением
 	Building& operator+=(const Building& b);
 
-	// Преобразование контейнеров, хранящих экземпляры класса Здание, в строку
+	// Проверка существования здания с таким же названием
+	template <typename Container>
+	static bool name_exists(const string& name, const Container& buildings,
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
+
+	// Заполнение параметров здания пользователем и возврат указателя на объект здания
+	template <typename Container>
+	static Building* new_building(const Container& buildings,
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
+
+	// Преобразование контейнеров зданий в строку
 	template <typename Iterator>
-	static string buildings_to_string(Iterator begin, Iterator end, const string& separator = "\n");
+	static string buildings_to_string(Iterator begin, Iterator end, const string& separator = "\n",
+		enable_if_t<is_same_v<typename iterator_traits<Iterator>::value_type, Building>, int>* = 0);
+
+	// Сортировка контейнера типа int
+	template <typename Container>
+	void sort_container(Container& container,
+		enable_if_t<is_same_v<typename Container::value_type, int>, int>* = 0);
 };
+
+#include "kondakov_lr3_4_building.hpp"
 
 #endif //!KONDAKOV_LR3_4_BUILDING_H

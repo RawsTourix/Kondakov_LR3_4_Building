@@ -1,5 +1,8 @@
 #include "kondakov_lr3_4_building.h"
 
+// Инициализация названия по умолчанию вне класса
+const string Building::DEFAULT_NAME = "Building";
+
 // Конструкторы
 // С параметрами
 Building::Building(const string& name,
@@ -137,6 +140,15 @@ Building::operator string() const {
          реконструкции:\t" + this->get_reconstruction_dates_as_str() + "\n";
 }
 
+// Для проверки на параметры по умолчанию: если по умолчанию -> false, если не по умолчанию -> true
+Building::operator bool() const {  // (пока не используется в проекте)
+	return this->name != DEFAULT_NAME &&
+		   this->height != DEFAULT_HEIGHT &&
+		   this->square != DEFAULT_SQUARE &&
+		   this->volume != DEFAULT_VOLUME &&
+		   !this->reconstruction_dates.empty();
+}
+
 // Инкремент, увеличение высоты
 Building& Building::operator++() { this->height++;  return *this; }
 Building Building::operator++(int) {
@@ -167,20 +179,4 @@ Building& Building::operator+=(const Building& b) {
 	this->volume = height * square;
 	this->reconstruction_dates.insert(reconstruction_dates.end(), b.reconstruction_dates.begin(), b.reconstruction_dates.end());
 	return *this;
-}
-
-// Преобразование контейнеров, хранящих экземпляры класса Здание, в строку
-template <typename Iterator>
-string Building::buildings_to_string(Iterator begin, Iterator end, const string& separator) {
-	if (begin == end) return "";
-
-	string result = *begin;
-	++begin;
-
-	while (begin != end) {
-		result += separator + *begin;
-		++begin;
-	}
-
-	return result;
 }
