@@ -48,16 +48,111 @@ function<void()> MenuObject::add_building(Container& buildings,
     };
 }
 
+// Удаление здания
+template <typename Container>
+function<void()> MenuObject::delete_building(Container& buildings,
+    enable_if_t<is_same_v<typename Container::value_type, Building>, int>*) {
+    return [&]() {
+        string name;
+        bool escape;
+
+        cout << "Введите название здания, которое нужно удалить." << endl << endl;
+        InputControl::enter_string(name, escape, "Название: "); if (escape) return;
+
+        if (Building::name_exists(name)) {
+            if (Building::delete_by_name(name))
+                cout << "Здание \"" << name << "\" успешно удалено из списка.";
+            else
+                cout << "Здание \"" << name << "\" не было удалено из списка.";
+        }
+        else
+            cout << "Здания \"" << name << "\" нет в списке.";
+    };
+}
+
 // Сохранение данных о зданиях
 template <typename Iterator>
 function<void()> MenuObject::save_buildings(Iterator begin, Iterator end, const string& filename,
     enable_if_t<is_same_v<typename iterator_traits<Iterator>::value_type, Building>, int>*) {
     return [&]() {
-        bool saved = SaveModule::save_buildings_to_bin(begin, end, filename);
-        if (saved)
+        if (SaveModule::save_buildings_to_bin(begin, end, filename))
             cout << "Данные о зданиях успешно записаны.";
         else
             cout << "Ошибка записи данных о зданиях в файл!";
+    };
+}
+
+// Поиск по названию здания
+template <typename Container>
+function<void()> MenuObject::find_building_by_name(const Container& buildings,
+    enable_if_t<is_same_v<typename Container::value_type, Building>, int>*) {
+    return [&]() {
+        string name;
+        bool escape;
+
+        cout << "Введите название здания, которое нужно найти." << endl << endl;
+        InputControl::enter_string(name, escape, "Название: "); if (escape) return;
+
+        if (Building::name_exists(name)) {
+            Building* building_ptr = Building::get_building_by_name(name, buildings);
+            if (building_ptr)
+                cout << "Здание найдено." << endl << endl << static_cast<string>(*building_ptr);
+            else
+                cout << "Здания \"" << name << "\" нет в списке.";
+        }
+        else
+            cout << "Здания \"" << name << "\" нет в списке.";
+    };
+}
+
+// Сортировка по последнему году реконструкции
+template <typename Iterator>
+function<void()> MenuObject::sort_buildings_by_reconstruction_dates(Iterator begin, Iterator end,
+    enable_if_t<is_same_v<typename iterator_traits<Iterator>::value_type, Building>, int>*) {
+    return [&]() {
+        if (Building::sort_buildings_by_reconstruction_dates(begin, end))
+            cout << "Список зданий успешно отсортирован.";
+        else
+            cout << "Список зданий не был отсортирован. Вероятно, он пустой или состоит из зданий, не имеющих дат реконструкции.";
+    };
+}
+
+// Объединение двух зданий
+template <typename Container>
+void MenuObject::combine_two_buildings(Container& buildings,
+    enable_if_t<is_same_v<typename Container::value_type, Building>, int>*) {
+    return [&]() {
+        try {
+            string name1, name2;
+            Building building1, building2;
+            bool escape;
+
+            cout << "Введите названия двух зданий." << endl << endl;
+
+            InputControl::enter_string(name1, escape, "Название первого: ");	    if (escape) return;
+            while (!name_exists(name1, buildings)) {
+                cout << endl << "Здания с таким названием не существует!" << endl << endl;
+                InputControl::enter_string(name1, escape, "Название первого: ");	if (escape) return;
+            }
+            building1 = *Building::get_building_by_name(name1, buildings);
+
+            InputControl::enter_string(name2, escape, "Название второго: ");	    if (escape) return;
+            while (!name_exists(name2, buildings)) {
+                cout << endl << "Здания с таким названием не существует!" << endl << endl;
+                InputControl::enter_string(name2, escape, "Название второго: ");	if (escape) return;
+            }
+            building2 = *Building::get_building_by_name(name2, buildings);
+
+            Building combined_building = building1 + building2;
+
+            Building::delete_by_name(name1, buildings);
+            Building::delete_by_name(name2, buildings);
+
+            buildings.push_back(combined_building);
+
+            cout << "Здания успешно объединены.";
+        }
+        catch (...) { cerr << "Возникла ошибка при объединении зданий."; }
     };
 }
 

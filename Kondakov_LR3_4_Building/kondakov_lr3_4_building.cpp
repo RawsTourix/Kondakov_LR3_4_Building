@@ -14,7 +14,7 @@ Building::Building(const string& name,
 	             square(square),
 	             volume(height* square),
 	             reconstruction_dates(reconstruction_dates) {
-}
+	sort_container(reconstruction_dates); }
 
 // С параметрами для загрузки из бинарного файла
 Building::Building(string name,
@@ -27,12 +27,12 @@ Building::Building(string name,
 				 square(square),
 				 volume(volume),
 				 reconstruction_dates(reconstruction_dates) {
-}
+	sort_container(reconstruction_dates); }
 
 // Преобразования
 Building::Building(const string& name)
 	: Building(name, this->height, this->square, this->reconstruction_dates) {
-}
+	sort_container(reconstruction_dates); }
 
 // Перемещения
 Building::Building(string&& name,
@@ -131,13 +131,13 @@ bool operator>=(int year, const Building& b) { return year >= b.get_average_reco
 
 // Преобразование информации о здании в строку
 Building::operator string() const {
-	return
-		"Название:\t\t" + this->get_name() + "\n" +
-		"Высота:\t\t\t" + this->get_height_as_str() + "\n" +
-		"Площадь:\t\t" + this->get_square_as_str() + "\n" +
-		"Объём:\t\t\t" + this->get_volume_as_str() + "\n" +
-		"Список дат\n\
-         реконструкции:\t" + this->get_reconstruction_dates_as_str() + "\n";
+	ostringstream oss;
+	oss << "Название:\t\t" << get_name() << "\n"
+		<< "Высота:\t\t\t" << get_height_as_str() << "\n"
+		<< "Площадь:\t\t" << get_square_as_str() << "\n"
+		<< "Объём:\t\t\t" << get_volume_as_str() << "\n"
+		<< "Список дат\nреконструкции:\t" << get_reconstruction_dates_as_str() << "\n";
+	return oss.str();
 }
 
 // Для проверки на параметры по умолчанию: если по умолчанию -> false, если не по умолчанию -> true

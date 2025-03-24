@@ -139,6 +139,16 @@ public:
 	static bool name_exists(const string& name, const Container& buildings,
 		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
 
+	// Получение здания из контейнера по его названию
+	template <typename Container>
+	static Building* get_building_by_name(const string& name, const Container& buildings,
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
+
+	// Удаление здания с заданным названием
+	template <typename Container>
+	static bool delete_by_name(const string& name, Container& buildings,
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
+
 	// Заполнение параметров здания пользователем и возврат указателя на объект здания
 	template <typename Container>
 	static Building* new_building(const Container& buildings,
@@ -151,8 +161,13 @@ public:
 
 	// Сортировка контейнера типа int
 	template <typename Container>
-	void sort_container(Container& container,
+	static void sort_container(Container& container,
 		enable_if_t<is_same_v<typename Container::value_type, int>, int>* = 0);
+
+	// Сортировка контейнера зданий по последнему году реконструкции
+	template <typename Iterator>
+	static bool sort_buildings_by_reconstruction_dates(Iterator begin, Iterator end,
+		enable_if_t<is_same_v<typename iterator_traits<Iterator>::value_type, Building>, int>* = 0);
 };
 
 #include "kondakov_lr3_4_building.hpp"
