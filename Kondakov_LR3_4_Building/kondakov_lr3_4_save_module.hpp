@@ -3,34 +3,32 @@
 
 #include "kondakov_lr3_4_save_module.h"
 
-// Преобразовать список зданий в строку удобную для сохранения в файл
-template <typename Iterator>
-string SaveModule::parse_buildings_to_save(Iterator begin, Iterator end,
-    enable_if_t<is_same_v<typename iterator_traits<Iterator>::value_type, Building>, int>*) {
-    if (begin == end) return "";
+// Преобразоване списка зданий в строку удобную для сохранения в файл
+template <typename Container>
+string SaveModule::parse_buildings_to_save(const Container& buildings,
+    enable_if_t<is_same_v<typename Container::value_type, Building>, int>*) {
+    if (buildings.empty()) return "";
 
     const string separator = "\n";
 
     string result;
 
-    while (begin != end) {
-        result += begin->get_name() + separator +
-            begin->get_height_as_str() + separator +
-            begin->get_square_as_str() + separator +
-            begin->get_volume_as_str() + separator +
-            begin->get_reconstruction_dates_as_str() + separator;
-
-        ++begin;
+    for (const auto& building : buildings) {
+        result += building.get_name() + separator +
+                  building.get_height_as_str() + separator +
+                  building.get_square_as_str() + separator +
+                  building.get_volume_as_str() + separator +
+                  building.get_reconstruction_dates_as_str(",") + separator;
     }
 
     return result;
 }
 
 // Загрузка данных о зданиях в бинарный файл
-template <typename Iterator>
-bool SaveModule::save_buildings_to_bin(Iterator begin, Iterator end, const string& filename,
-    enable_if_t<is_same_v<typename iterator_traits<Iterator>::value_type, Building>, int>*) {
-    string buildings_data = parse_buildings_to_save(begin, end);
+template <typename Container>
+bool SaveModule::save_buildings_to_bin(const Container& buildings, const string& filename,
+    enable_if_t<is_same_v<typename Container::value_type, Building>, int>*) {
+    string buildings_data = parse_buildings_to_save(buildings);
 
     ofstream file(filename, ios::binary | ios::out | ios::trunc);
     if (file.is_open()) {

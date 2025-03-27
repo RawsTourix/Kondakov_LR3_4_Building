@@ -10,7 +10,7 @@ private:
 	int height = DEFAULT_HEIGHT;			// высота здания
 	int square = DEFAULT_SQUARE;			// площадь здания
 	int volume = DEFAULT_VOLUME;			// объём здания
-	vector<int> reconstruction_dates = {};  // список дат реконструкции
+	vector<int> reconstruction_dates {};  // список дат реконструкции
 
 public:
 	// Количество полей класса 
@@ -40,10 +40,10 @@ public:
 	Building(const string& name,
 			 int height,
 			 int square,
-			 const vector<int>& reconstruction_dates);
+			 vector<int>& reconstruction_dates);
 
 	// С параметрами для загрузки из бинарного файла
-	Building(string name,
+	Building(const string& name,
 			 int height,
 			 int square,
 			 int volume,
@@ -80,7 +80,7 @@ public:
 	inline int get_volume() const;
 	inline string get_volume_as_str() const;
 	inline vector<int> get_reconstruction_dates() const;
-	inline string get_reconstruction_dates_as_str(const string& separator) const;
+	inline string get_reconstruction_dates_as_str(const string& separator = ", ") const;
 
 	// Получение средней даты реконструкции
 	inline int get_average_reconstruction_date() const;
@@ -141,7 +141,12 @@ public:
 
 	// Получение здания из контейнера по его названию
 	template <typename Container>
-	static Building* get_building_by_name(const string& name, const Container& buildings,
+	static Building* get_building_by_name(const string& name, Container& buildings,
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
+
+	// Получение списка зданий по подстроке названия
+	template <typename Container>
+	static vector<Building> get_buildings_by_name_substr(const string& substr, Container& buildings,
 		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
 
 	// Удаление здания с заданным названием
@@ -155,9 +160,9 @@ public:
 		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
 
 	// Преобразование контейнеров зданий в строку
-	template <typename Iterator>
-	static string buildings_to_string(Iterator begin, Iterator end, const string& separator = "\n",
-		enable_if_t<is_same_v<typename iterator_traits<Iterator>::value_type, Building>, int>* = 0);
+	template <typename Container>
+	static string buildings_to_string(const Container& buildings, const string& separator = "\n",
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
 
 	// Сортировка контейнера типа int
 	template <typename Container>
@@ -165,9 +170,9 @@ public:
 		enable_if_t<is_same_v<typename Container::value_type, int>, int>* = 0);
 
 	// Сортировка контейнера зданий по последнему году реконструкции
-	template <typename Iterator>
-	static bool sort_buildings_by_reconstruction_dates(Iterator begin, Iterator end,
-		enable_if_t<is_same_v<typename iterator_traits<Iterator>::value_type, Building>, int>* = 0);
+	template <typename Container>
+	static bool sort_buildings_by_reconstruction_dates(Container& buildings,
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
 };
 
 #include "kondakov_lr3_4_building.hpp"

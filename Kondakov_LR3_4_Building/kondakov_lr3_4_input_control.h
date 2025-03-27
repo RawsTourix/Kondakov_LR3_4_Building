@@ -1,5 +1,5 @@
-#ifndef KONDAKOV_LR3_4_INPUT_CONTROL
-#define KONDAKOV_LR3_4_INPUT_CONTROL
+#ifndef KONDAKOV_LR3_4_INPUT_CONTROL_H
+#define KONDAKOV_LR3_4_INPUT_CONTROL_H
 
 #include "kondakov_lr3_4_def.h"
 
@@ -19,6 +19,12 @@ public:
 
 	// Вспомогательная функция для ввода строк
 	static void enter_string(string& varLink, bool& escapeLink, const string& label = "");
+
+	// Возвращает один символ
+	static char get_char();
+
+	// Считывает нажатие клавиши y/n
+	static bool yes_or_no(const string& label);
 };
 
-#endif // !KONDAKOV_LR3_4_INPUT_CONTROL
+#endif // !KONDAKOV_LR3_4_INPUT_CONTROL_H

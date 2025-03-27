@@ -3,7 +3,7 @@
 // Раскодирование объектов здания из бинарного файла
 // и запись построчно в vector
 vector<string> LoadModule::get_decoded_buildings_params(ifstream& file) {
-    vector<string> building_params;         // параметры зданию
+    vector<string> building_params {};      // параметры зданий
     
     ostringstream buffer;                   // создание oss для хранения декодированной информации о зданиях
     buffer << file.rdbuf();                 // декодирование
@@ -45,17 +45,15 @@ vector<Building> LoadModule::get_buildings_from_binary_file(const string& filena
                 case 3: square = stoi(param); break;  // получение площади с преобразованием в int
                 case 4: volume = stoi(param); break;  // получение объёма с преобразованием в int
                 case 5: [&]() {   // так как нельзя инициализировать переменные внутри switch-case, создаю лямбда-функцию
+                            reconstruction_dates.clear();
                             istringstream years(param);
                             string year;
                             while (getline(years, year, ',')) {
-                                year.erase(0, year.find_first_not_of(' '));  // очистка пробелов в начале
-                                year.erase(year.find_last_not_of(' ') + 1);  // очиска пробелов в конце
-
-                                return reconstruction_dates.push_back(stoi(year));  // получение списка дат реконструкции
+                                reconstruction_dates.push_back(stoi(year));  // получение списка дат реконструкции
                             }
-                        }; break;
+                        }(); break;
                 default:
-                    cout << "Ошибка записи данных! Обнаружен неизвестный параметр здания." << endl << endl;
+                    cout << "LoadModule: Ошибка записи данных! Обнаружен неизвестный параметр здания." << endl << endl;
                     file.close();
                     return buildings;
                 }
@@ -68,7 +66,7 @@ vector<Building> LoadModule::get_buildings_from_binary_file(const string& filena
             }
         }
         else
-            cout << "Ошибка: обнаружены лишние данные при чтении бинарного файла!" << endl << endl;
+            cout << "LoadModule: Ошибка: обнаружены лишние данные при чтении бинарного файла!" << endl << endl;
 
         file.close();
     }

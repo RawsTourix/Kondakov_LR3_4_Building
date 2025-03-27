@@ -7,8 +7,3 @@ MenuObject::MenuObject(int number,
                      label(label),
                      action(action) {
 }
-
-// Вывод пункта меню
-inline void MenuObject::show() const {
-    cout << number << ") " << label << endl;
-}

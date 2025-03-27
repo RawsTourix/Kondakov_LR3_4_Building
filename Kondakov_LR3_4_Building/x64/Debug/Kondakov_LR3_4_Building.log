@@ -1,5 +1,11 @@
-﻿  kondakov_lr3_4_load_module.cpp
+﻿  kondakov_lr3_4_input_control.cpp
+  kondakov_lr3_4_input_control.h
+  kondakov_lr3_4_load_module.cpp
   kondakov_lr3_4_load_module.h
+  kondakov_lr3_4_menu_object.cpp
+  kondakov_lr3_4_save_module.hpp
+  kondakov_lr3_4_building.cpp
+  kondakov_lr3_4_main.cpp
   Создание кода...
 x64\Debug\kondakov_lr3_4_input_control.obj : warning LNK4042: объект указан более одного раза; лишние не учитываются
 x64\Debug\kondakov_lr3_4_load_module.obj : warning LNK4042: объект указан более одного раза; лишние не учитываются

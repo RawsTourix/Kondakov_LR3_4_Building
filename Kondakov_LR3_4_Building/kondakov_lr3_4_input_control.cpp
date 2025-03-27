@@ -14,7 +14,7 @@ void InputControl::trim(string& str) {
 // Проверка на пустой ввод для отмены операции
 bool InputControl::is_input_empty(const string& input) {
 	if (input.empty()) {
-		cout << endl << "[Отмена операции]";
+		cout << endl << "[Отмена операции]" << endl;
 		return true;
 	}
 	return false;
@@ -63,4 +63,28 @@ void InputControl::enter_string(string& varLink, bool& escapeLink, const string&
 	escapeLink = is_input_empty(raw_input);
 	if (!escapeLink)
 		varLink = raw_input;
+}
+
+// Возвращает один символ
+char InputControl::get_char() {
+	char ch;
+	cin >> ch;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	return ch;
+}
+
+// Считывает нажатие клавиши y/n
+bool InputControl::yes_or_no(const string& label) {
+	char ch;
+
+	while (true) {
+		cout << label << " (y/n): ";
+		ch = get_char();
+		cout << endl;
+
+		if (ch == 'y' || ch == 'Y') return true;
+		if (ch == 'n' || ch == 'N') return false;
+
+		cout << endl << "Некорректный ввод!" << endl << endl;
+	}
 }
