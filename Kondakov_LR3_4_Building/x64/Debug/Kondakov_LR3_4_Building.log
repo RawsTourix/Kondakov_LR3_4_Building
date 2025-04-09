@@ -3,9 +3,73 @@
   kondakov_lr3_4_load_module.cpp
   kondakov_lr3_4_load_module.h
   kondakov_lr3_4_menu_object.cpp
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,41): warning C4244: аргумент: преобразование "T" в "float", возможна потеря данных
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,41): warning C4244:         with
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,41): warning C4244:         [
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,41): warning C4244:             T=int
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,41): warning C4244:         ]
+  (компиляция исходного файла "kondakov_lr3_4_menu_object.cpp")
+      C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,41):
+      контекст создания экземпляра шаблона (сначала самый старый)
+          C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_menu_object.cpp(45,20):
+          выполняется компиляция ссылки на экземпляр шаблон функции "bool InputControl::input<int>(T &,const std::string &,T,T,int *)"
+          with
+          [
+              T=int
+          ]
+  
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,36): warning C4244: аргумент: преобразование "T" в "float", возможна потеря данных
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,36): warning C4244:         with
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,36): warning C4244:         [
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,36): warning C4244:             T=int
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,36): warning C4244:         ]
+  (компиляция исходного файла "kondakov_lr3_4_menu_object.cpp")
+  
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(23,12): warning C4244: =: преобразование "float" в "T", возможна потеря данных
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(23,12): warning C4244:         with
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(23,12): warning C4244:         [
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(23,12): warning C4244:             T=int
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(23,12): warning C4244:         ]
+  (компиляция исходного файла "kondakov_lr3_4_menu_object.cpp")
+  
   kondakov_lr3_4_save_module.hpp
   kondakov_lr3_4_building.cpp
   kondakov_lr3_4_main.cpp
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,41): warning C4244: аргумент: преобразование "T" в "float", возможна потеря данных
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,41): warning C4244:         with
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,41): warning C4244:         [
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,41): warning C4244:             T=int
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,41): warning C4244:         ]
+  (компиляция исходного файла "kondakov_lr3_4_main.cpp")
+      C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,41):
+      контекст создания экземпляра шаблона (сначала самый старый)
+          C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_main.cpp(29,73):
+          выполняется компиляция ссылки на экземпляр шаблон функции "std::function<void (void)> MenuObject::increase_building_height_by_n<std::vector<Building,std::allocator<Building>>>(Container &,int *)"
+          with
+          [
+              Container=std::vector<Building,std::allocator<Building>>
+          ]
+          C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_menu_object.hpp(397,35):
+          выполняется компиляция ссылки на экземпляр шаблон функции "bool InputControl::input<int>(T &,const std::string &,T,T,int *)"
+          with
+          [
+              T=int
+          ]
+  
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,36): warning C4244: аргумент: преобразование "T" в "float", возможна потеря данных
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,36): warning C4244:         with
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,36): warning C4244:         [
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,36): warning C4244:             T=int
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(21,36): warning C4244:         ]
+  (компиляция исходного файла "kondakov_lr3_4_main.cpp")
+  
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(23,12): warning C4244: =: преобразование "float" в "T", возможна потеря данных
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(23,12): warning C4244:         with
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(23,12): warning C4244:         [
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(23,12): warning C4244:             T=int
+C:\Users\fedot\source\repos\Kondakov_LR3_4_Building\Kondakov_LR3_4_Building\kondakov_lr3_4_input_control.hpp(23,12): warning C4244:         ]
+  (компиляция исходного файла "kondakov_lr3_4_main.cpp")
+  
   Создание кода...
 x64\Debug\kondakov_lr3_4_input_control.obj : warning LNK4042: объект указан более одного раза; лишние не учитываются
 x64\Debug\kondakov_lr3_4_load_module.obj : warning LNK4042: объект указан более одного раза; лишние не учитываются

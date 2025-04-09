@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="kondakov_lr3_4_building.hpp" />
+    <ClInclude Include="kondakov_lr3_4_input_control.hpp" />
     <ClInclude Include="kondakov_lr3_4_menu_object.h" />
     <ClInclude Include="kondakov_lr3_4_menu_object.hpp" />
     <ClInclude Include="kondakov_lr3_4_save_module.h" />

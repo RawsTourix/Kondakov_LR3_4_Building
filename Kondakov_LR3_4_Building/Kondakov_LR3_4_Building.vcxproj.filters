@@ -59,6 +59,9 @@
     <ClInclude Include="kondakov_lr3_4_building.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="kondakov_lr3_4_input_control.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="buildings.bin">

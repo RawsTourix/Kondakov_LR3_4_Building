@@ -10,7 +10,7 @@ private:
 	int height = DEFAULT_HEIGHT;			// высота здания
 	int square = DEFAULT_SQUARE;			// площадь здания
 	int volume = DEFAULT_VOLUME;			// объём здания
-	vector<int> reconstruction_dates {};  // список дат реконструкции
+	vector<int> reconstruction_dates {};    // список дат реконструкции
 
 public:
 	// Количество полей класса 
@@ -32,35 +32,32 @@ public:
 	static const int DEFAULT_SQUARE = 0;  // площадь здания по умолчанию
 	static const int DEFAULT_VOLUME = 0;  // объём здания по умолчанию
 
-	// Конструкоры
-	// По умолчанию
+	// Конструкор по умолчанию
 	Building() = default;
 
-	// С параметрами
+	// Конструкор с 4 параметрами (с вычислениием объёма)
 	Building(const string& name,
 			 int height,
 			 int square,
 			 vector<int>& reconstruction_dates);
 
-	// С параметрами для загрузки из бинарного файла
-	Building(const string& name,
+	// Конструкор с параметрами (базовый)
+	Building(string name,
 			 int height,
 			 int square,
 			 int volume,
 			 vector<int> reconstruction_dates);
 
-	// Преобразования
+	// Конструкор преобразования
 	Building(const string& name);
 
-	// Копирования
-	Building(const Building& building) = default;
+	// Конструкор копирования
+	Building(const Building&) = default;
+	Building& operator=(const Building&) = default;
 
-	// Перемещения
-	Building(string&& name,
-			 int height,
-			 int square,
-			 int volume,
-			 vector<int>&& reconstruction_dates);
+	// Конструкор перемещения
+	Building(Building&& other) noexcept;
+	Building& operator=(Building&&) noexcept = default;
 
 	// Деструктор
 	~Building() = default;
@@ -80,6 +77,8 @@ public:
 	inline int get_volume() const;
 	inline string get_volume_as_str() const;
 	inline vector<int> get_reconstruction_dates() const;
+	inline vector<int>& get_reconstruction_dates_link();
+	inline vector<int> get_reversed_reconstruction_dates() const;
 	inline string get_reconstruction_dates_as_str(const string& separator = ", ") const;
 
 	// Получение средней даты реконструкции
@@ -134,6 +133,12 @@ public:
 	// Присваивание со сложением
 	Building& operator+=(const Building& b);
 
+	// Присваивание со сложением (увеличение высоты)
+	Building& operator+=(int n);
+
+	// Присваивание с вычитанием (уменьшение высоты)
+	Building& operator-=(int n);
+
 	// Проверка существования здания с таким же названием
 	template <typename Container>
 	static bool name_exists(const string& name, const Container& buildings,
@@ -142,6 +147,11 @@ public:
 	// Получение здания из контейнера по его названию
 	template <typename Container>
 	static Building* get_building_by_name(const string& name, Container& buildings,
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
+
+	// Получение здания из контейнера по его введённому названию (устарело)
+	template <typename Container>
+	static Building* get_building_by_input_name(Container& buildings,
 		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
 
 	// Получение списка зданий по подстроке названия
@@ -154,6 +164,11 @@ public:
 	static bool delete_by_name(const string& name, Container& buildings,
 		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
 
+	// Удаление здания по его ссылке из списка
+	template <typename Container>
+	static bool delete_by_building_link(const Building& building, Container& buildings,
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
+
 	// Заполнение параметров здания пользователем и возврат указателя на объект здания
 	template <typename Container>
 	static Building* new_building(const Container& buildings,
@@ -161,18 +176,61 @@ public:
 
 	// Преобразование контейнеров зданий в строку
 	template <typename Container>
-	static string buildings_to_string(const Container& buildings, const string& separator = "\n",
+	static string buildings_to_string(const Container& buildings, const string& separator = "\n\n",
 		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
 
-	// Сортировка контейнера типа int
+	// Проверка существования даты
 	template <typename Container>
-	static void sort_container(Container& container,
+	static bool year_exists(int year, const Container& reconstruction_dates,
+		enable_if_t<is_same_v<typename Container::value_type, int>, int>* = 0);
+
+	// Получение даты из контейнера по значению
+	template <typename Container>
+	static int* get_year_by_value(int year, Container& reconstruction_dates,
+		enable_if_t<is_same_v<typename Container::value_type, int>, int>* = 0);
+
+	// Получение даты из контейнера по введённому значению
+	template <typename Container>
+	static int* get_year_by_input_value(Container& reconstruction_dates,
 		enable_if_t<is_same_v<typename Container::value_type, int>, int>* = 0);
 
 	// Сортировка контейнера зданий по последнему году реконструкции
 	template <typename Container>
 	static bool sort_buildings_by_reconstruction_dates(Container& buildings,
 		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
+
+	// Сортировка контейнера зданий по средней дате реконструкции
+	template <typename Container>
+	static bool sort_buildings_by_avg_reconstruction_date(Container& buildings,
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
+
+	// Сортировка контейнера зданий по высоте
+	template <typename Container>
+	static bool sort_buildings_by_height(Container& buildings,
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
+
+	// Сортировка контейнера зданий по площади
+	template <typename Container>
+	static bool sort_buildings_by_square(Container& buildings,
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
+
+	// Сортировка контейнера зданий по объёму
+	template <typename Container>
+	static bool sort_buildings_by_volume(Container& buildings,
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
+
+	// Сортировка контейнера зданий по всем параметрам
+	template <typename Container>
+	static bool sort_buildings_by_all(Container& buildings,
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
+
+	// Выбор здания из списка по номеру названия
+	template <typename Container>
+	static Building* choose_building_by_name_number(Container& buildings, const string& message = "Выберите здание из списка.",
+		enable_if_t<is_same_v<typename Container::value_type, Building>, int>* = 0);
+
+	// Получение даты из контейнера по номеру даты из списка
+	static int* choose_reconstruction_date_by_year_number(Building& building);
 };
 
 #include "kondakov_lr3_4_building.hpp"
